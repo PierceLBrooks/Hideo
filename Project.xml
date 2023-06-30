@@ -6,7 +6,7 @@
         <label>ulog</label>
         <subpath>build</subpath>
         <remote>
-          <url>https://github.com/PierceLBrooks/ulog.git</url>
+          <url>https://github.com/aviborg/ulog.git</url>
           <git_repo>
             <branch>pierce</branch>
             <credentials>
@@ -31,7 +31,7 @@
         </build>
         <exports>
           <export type="all">
-            <key>ULOG_PATH</key>
+            <key>ULOG_ROOT</key>
             <value><install></install></value>
           </export>
           <export type="headers">
@@ -59,6 +59,21 @@
           </git_repo>
         </remote>
         <build>
+          <post>
+            <shells>
+              <shell>
+                <work><origin></origin>/build/<lower><data id="BUILDSTER_VARIANT"></data></lower></work>
+                <commands>
+                  <command>
+                    <copy>
+                      <from>json-c-config.cmake</from>
+                      <to><install></install></to>
+                    </copy>
+                  </command>
+                </commands>
+              </shell>
+            </shells>
+          </post>
           <arguments></arguments>
           <cmake>
             <generator>
@@ -74,7 +89,11 @@
         </build>
         <exports>
           <export type="all">
-            <key>JSON_C_PATH</key>
+            <key>CMAKE_PREFIX_PATH</key>
+            <value><install></install></value>
+          </export>
+          <export type="all">
+            <key>JSON_C_ROOT</key>
             <value><install></install></value>
           </export>
           <export type="headers">
@@ -117,7 +136,7 @@
         </build>
         <exports>
           <export type="all">
-            <key>LIBH264_PATH</key>
+            <key>LIBH264_ROOT</key>
             <value><install></install></value>
           </export>
           <export type="headers">
@@ -129,7 +148,10 @@
             <value><install></install>/lib</value>
           </export>
         </exports>
-        <imports></imports>
+        <imports>
+          <import>ulog</import>
+          <import>json_c</import>
+        </imports>
       </dependency>
       <dependency>
         <label>libh265</label>
@@ -160,7 +182,7 @@
         </build>
         <exports>
           <export type="all">
-            <key>LIBH265_PATH</key>
+            <key>LIBH265_ROOT</key>
             <value><install></install></value>
           </export>
           <export type="headers">
@@ -172,7 +194,10 @@
             <value><install></install>/lib</value>
           </export>
         </exports>
-        <imports></imports>
+        <imports>
+          <import>ulog</import>
+          <import>json_c</import>
+        </imports>
       </dependency>
     </dependencies>
     <targets>
