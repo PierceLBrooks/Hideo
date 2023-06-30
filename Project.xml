@@ -6,9 +6,9 @@
         <label>ulog</label>
         <subpath>build</subpath>
         <remote>
-          <url>https://github.com/aviborg/ulog.git</url>
+          <url>https://github.com/PierceLBrooks/ulog.git</url>
           <git_repo>
-            <branch>pierce</branch>
+            <branch>master</branch>
             <credentials>
               <username>username</username>
               <password>password</password>
@@ -16,7 +16,9 @@
           </git_repo>
         </remote>
         <build>
-          <arguments></arguments>
+          <arguments>
+            <argument>-DBUILD_SHARED_LIBS=ON</argument>
+          </arguments>
           <cmake>
             <generator>
               <switch id="BUILDSTER_OS">
@@ -31,6 +33,10 @@
         </build>
         <exports>
           <export type="all">
+            <key>CMAKE_PREFIX_PATH</key>
+            <value><data id="CMAKE_PREFIX_PATH"></data>;<install></install>/lib/cmake/ulog</value>
+          </export>
+          <export type="all">
             <key>ULOG_ROOT</key>
             <value><install></install></value>
           </export>
@@ -40,7 +46,14 @@
           </export>
           <export type="libraries">
             <key>ULOG_LIBRARIES_PATH</key>
-            <value><install></install>/lib</value>
+            <value>
+              <switch id="BUILDSTER_OS">
+                <case check="Windows"><install></install>/bin</case>
+                <case check="Linux"><install></install>/lib</case>
+                <case check="Darwin"><install></install>/lib</case>
+                <default><quit></quit></default>
+              </switch>
+            </value>
           </export>
         </exports>
         <imports></imports>
@@ -59,22 +72,9 @@
           </git_repo>
         </remote>
         <build>
-          <post>
-            <shells>
-              <shell>
-                <work><origin></origin>/build/<lower><data id="BUILDSTER_VARIANT"></data></lower></work>
-                <commands>
-                  <command>
-                    <copy>
-                      <from>json-c-config.cmake</from>
-                      <to><install></install></to>
-                    </copy>
-                  </command>
-                </commands>
-              </shell>
-            </shells>
-          </post>
-          <arguments></arguments>
+          <arguments>
+            <argument>-DBUILD_SHARED_LIBS=ON</argument>
+          </arguments>
           <cmake>
             <generator>
               <switch id="BUILDSTER_OS">
@@ -90,7 +90,7 @@
         <exports>
           <export type="all">
             <key>CMAKE_PREFIX_PATH</key>
-            <value><install></install></value>
+            <value><data id="CMAKE_PREFIX_PATH"></data>;<install></install>/lib/cmake/json-c</value>
           </export>
           <export type="all">
             <key>JSON_C_ROOT</key>
